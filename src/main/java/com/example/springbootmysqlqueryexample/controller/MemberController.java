@@ -3,6 +3,7 @@ package com.example.springbootmysqlqueryexample.controller;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,6 +26,12 @@ public class MemberController {
         return memberRepository.findAll();
     }
 
+    @GetMapping("members/{id}")
+    public MemberEntity findById(@PathVariable Long id) {
+        return memberRepository.findById(id)
+                               .orElse(null);
+    }
+
     @PostMapping("members")
     public MemberEntity save(@RequestParam String username,
                              @RequestParam String name) {
@@ -32,5 +39,11 @@ public class MemberController {
                                                  .username(username)
                                                  .name(name)
                                                  .build());
+    }
+
+    @PostMapping("members2")
+    public void saveWithDifferentIsolationLevel(@RequestParam String username,
+                                                        @RequestParam String name) {
+        memberRepository.saveWithDifferentIsolationLevel(username, name);
     }
 }

@@ -28,8 +28,4 @@ public class MemberEntity {
     @Column(nullable = false, length = 100)
     private String name;
 
-    public MemberEntity(String username, String name) {
-        this.username = username;
-        this.name = name;
-    }
 }
